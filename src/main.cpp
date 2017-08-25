@@ -84,11 +84,12 @@ void extract_pairs(const vector<string>& info, vector<feat>& pairs){
 		cur_pair->tag = cur_info.substr(pos + 1, -1);
 	}
 
-	string last_tag,  next_tag;
+	string last_tag, cur_tag, next_tag;
 	for(int idx = 0; idx < maxsize; idx++) {
 		cur_info = info[idx];
 		feat* cur_pair = &pairs[idx];
-		cur_pair->feats[0] = cur_pair->tag;
+		cur_tag = cur_pair->tag;
+		cur_pair->feats[0] = cur_tag;
 
 		if (idx - 1 >= 0)
 			cur_pair->feats[1] = info[idx - 1];
@@ -119,7 +120,7 @@ void extract_pairs(const vector<string>& info, vector<feat>& pairs){
 			next_tag = pairs[idx + 1].tag;
 		else
 			next_tag = no_tag;
-		cur_pair->feats[5] = last_tag + "_" + cur_pair->tag + "_" + next_tag;
+		cur_pair->feats[5] = last_tag + "_" + cur_tag + "_" + next_tag;
 	}
 }
 
@@ -131,4 +132,5 @@ void save_pairs(ofstream& out, const vector<feat>& pairs)  {
 			out << cur_pair->word << " " << cur_pair->feats[idy] << endl;
 		}
 	}
+	out.flush();
 }
