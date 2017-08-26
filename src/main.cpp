@@ -79,7 +79,7 @@ void extract_pairs(const vector<string>& info, vector<feat>& pairs){
 	for (int idx = 0; idx < maxsize; idx++) {
 		cur_info = info[idx];
 		feat* cur_pair = &pairs[idx];
-		pos = cur_info.find('_');
+		pos = cur_info.find_last_of('_');
 		cur_pair->word = cur_info.substr(0, pos);
 		cur_pair->tag = cur_info.substr(pos + 1, -1);
 	}
